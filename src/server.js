@@ -33,6 +33,7 @@ const init = async () => {
     await Mongoose.connect(process.env.DB_CONNECT, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useFindAndModify: false,
     }).then(console.log("DB Connected."));
 
     // JWT for auth

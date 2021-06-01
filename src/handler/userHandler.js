@@ -81,7 +81,7 @@ const putUserHandler = async (request, h) => {
     const { userName, accountNumber, emailAddress, identityNumber } =
       request.payload;
 
-    await userModel.findOneAndUpdate(
+    const result = await userModel.findOneAndUpdate(
       { _id: id },
       {
         userName,
@@ -91,14 +91,22 @@ const putUserHandler = async (request, h) => {
       }
     );
 
+    if (result !== null) {
+      const response = h.response({
+        status: "success",
+        message: "UserData berhasil diubah",
+        data: {
+          ...request.payload,
+        },
+      });
+      response.code(200);
+      return response;
+    }
     const response = h.response({
-      status: "success",
-      message: "UserData berhasil diubah",
-      data: {
-        ...request.payload,
-      },
+      status: "fail",
+      message: "UserData tidak ditemukan",
     });
-    response.code(200);
+    response.code(404);
     return response;
   } catch (err) {
     const response = h.response({
@@ -114,16 +122,24 @@ const deleteUserHandler = async (request, h) => {
   try {
     const { id } = request.params;
 
-    await userModel.findOneAndDelete({ _id: id });
+    const result = await userModel.findOneAndDelete({ _id: id });
 
+    if (result !== null) {
+      const response = h.response({
+        status: "success",
+        message: "UserData berhasil dihapus",
+        data: {
+          ...request.payload,
+        },
+      });
+      response.code(200);
+      return response;
+    }
     const response = h.response({
-      status: "success",
-      message: "UserData berhasil dihapus",
-      data: {
-        ...request.payload,
-      },
+      status: "fail",
+      message: "UserData tidak ditemukan",
     });
-    response.code(200);
+    response.code(404);
     return response;
   } catch (err) {
     const response = h.response({
