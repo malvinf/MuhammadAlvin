@@ -26,7 +26,6 @@ const token = {
 const init = async () => {
   const server = Hapi.server({
     port: process.env.PORT || 3000,
-    host: "https://localhost",
   });
 
   try {
