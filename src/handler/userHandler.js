@@ -3,11 +3,13 @@ const userModel = require("../models/userdata");
 const getUserHandler = async (request, h) => {
   try {
     const UserData = await userModel.find();
+
     const response = h.response({
       status: "success",
       data: { ...UserData },
     });
     response.code(200);
+    console.log("fetching data..");
     return response;
   } catch (err) {
     const response = h.response({
@@ -22,6 +24,7 @@ const getUserHandler = async (request, h) => {
 const getUserbyAccountNumberHandler = async (request, h) => {
   const { accountNumber } = request.params;
   const UserData = await userModel.findOne({ accountNumber: accountNumber });
+  console.log(UserData);
 
   const response = h.response({
     status: "success",
