@@ -26,10 +26,7 @@ const token = {
 const init = async () => {
   const server = Hapi.server({
     port: process.env.PORT || 3000,
-    host:
-      process.env.NODE_ENV !== "production"
-        ? "localhost"
-        : "https://muhammadalvin.herokuapp.com",
+    host: "https://localhost",
   });
 
   try {
