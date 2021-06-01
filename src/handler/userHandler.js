@@ -9,7 +9,6 @@ const getUserHandler = async (request, h) => {
       data: { ...UserData },
     });
     response.code(200);
-    console.log("fetching data..");
     return response;
   } catch (err) {
     const response = h.response({
@@ -24,7 +23,6 @@ const getUserHandler = async (request, h) => {
 const getUserbyAccountNumberHandler = async (request, h) => {
   const { accountNumber } = request.params;
   const UserData = await userModel.findOne({ accountNumber: accountNumber });
-  console.log(UserData);
 
   const response = h.response({
     status: "success",
